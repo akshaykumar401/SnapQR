@@ -1,0 +1,149 @@
+:root {
+  /* Brand Palette (#9FA0FF, #D5E8E6, #FFF3E3, #FF7171) */
+  --primary: #9FA0FF;
+  --primary-hover: #b4b5ff;
+  --primary-glow: rgba(159, 160, 255, 0.35);
+  --primary-gradient: linear-gradient(135deg, #9FA0FF 0%, #D5E8E6 50%, #FF7171 100%);
+  --secondary: #D5E8E6;
+  --secondary-hover: #e5f4f2;
+  --accent: #FF7171;
+  --accent-hover: #ff8e8e;
+  --accent-warm: #FFF3E3;
+
+  /* Surface / Background (Modern Deep Obsidian with Pastel Ambient Glows) */
+  --bg-body: #0d111d;
+  --bg-card: rgba(18, 24, 38, 0.88);
+  --bg-card-hover: rgba(26, 34, 54, 0.96);
+  --bg-card-glass: rgba(159, 160, 255, 0.05);
+  --bg-card-glass-hover: rgba(159, 160, 255, 0.09);
+  --bg-input: rgba(14, 19, 32, 0.85);
+  --bg-input-focus: rgba(18, 24, 42, 0.98);
+
+  /* Borders */
+  --border-subtle: rgba(255, 243, 227, 0.1);
+  --border-focus: rgba(159, 160, 255, 0.65);
+  --border-glass: rgba(213, 232, 230, 0.16);
+
+  /* Typography */
+  --text-primary: #FFF3E3;
+  --text-secondary: #D5E8E6;
+  --text-muted: #8c9cb3;
+  --text-inverse: #0d111d;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 20px 40px -10px rgba(0, 0, 0, 0.55);
+  --shadow-glow: 0 0 35px rgba(159, 160, 255, 0.3);
+  --shadow-card: 0 14px 40px 0 rgba(0, 0, 0, 0.5);
+
+  /* Fonts */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  /* Layout */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
+  --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.6;
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-primary);
+  background-color: var(--bg-body);
+  background-image: 
+    radial-gradient(at 10% 15%, rgba(159, 160, 255, 0.14) 0px, transparent 50%),
+    radial-gradient(at 90% 20%, rgba(213, 232, 230, 0.12) 0px, transparent 55%),
+    radial-gradient(at 50% 90%, rgba(255, 113, 113, 0.10) 0px, transparent 60%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--primary-hover);
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+/* Custom modern scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-body);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-pill);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(159, 160, 255, 0.6);
+}
+
+/* Base Utility Classes */
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.glow-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: rgba(159, 160, 255, 0.12);
+  border: 1px solid rgba(159, 160, 255, 0.3);
+  color: #9FA0FF;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: 0 0 16px rgba(159, 160, 255, 0.2);
+}
+
+.gradient-text {
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}

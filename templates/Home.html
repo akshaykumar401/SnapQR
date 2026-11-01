@@ -1,0 +1,542 @@
+{% extends "Base.html" %}
+
+{% block title %}Dynamic QR Code Studio & Branded Loading Screens{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/Home.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Site Navigation -->
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="/" class="brand-logo" aria-label="SnapQR Homepage">
+      <img src="{{ url_for('static', filename='img/Logo.png') }}" alt="SnapQR Brand Logo" width="40" height="40">
+      <span class="brand-name">Snap<span>QR</span></span>
+    </a>
+
+    <nav aria-label="Main Navigation">
+      <ul class="nav-links">
+        <li><a href="#generator" class="nav-link">Studio</a></li>
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+      </ul>
+    </nav>
+
+    <a href="#generator" class="nav-cta-btn">
+      <i class="fa-solid fa-qrcode"></i> Create QR
+    </a>
+  </div>
+</header>
+
+<main>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-content">
+      <div class="glow-pill">
+        <i class="fa-solid fa-bolt"></i> Next-Gen QR Studio with Custom Loading Splash
+      </div>
+
+      <h1 class="hero-title">
+        Design High-Converting <span class="gradient-text">Branded QR Codes</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Transform ordinary links into interactive brand experiences. Customize patterns, embed logos, and display custom loading messages and animations before redirecting your visitors.
+      </p>
+
+      <div class="hero-badges">
+        <div class="badge-item"><i class="fa-solid fa-check-circle"></i> 100% Free & Fast</div>
+        <div class="badge-item"><i class="fa-solid fa-wand-magic-sparkles"></i> Custom Loading Messages</div>
+        <div class="badge-item"><i class="fa-solid fa-palette"></i> Full Color & Logo Control</div>
+        <div class="badge-item"><i class="fa-solid fa-download"></i> High-Res PNG & SVG</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive QR Generator Studio -->
+  <section class="studio-section" id="generator">
+    <div class="container">
+      <div class="studio-grid">
+
+        <!-- Form Column -->
+        <div class="form-card">
+          <form id="qrStudioForm">
+            
+            <!-- Step 1: Destination URL -->
+            <div class="form-group-block">
+              <div class="section-header">
+                <div class="section-icon-badge">
+                  <i class="fa-solid fa-link"></i>
+                </div>
+                <div>
+                  <h2>1. Destination URL</h2>
+                  <p>Where should users go after scanning your QR code?</p>
+                </div>
+              </div>
+
+              <label for="targetUrl" class="input-label">
+                Target URL <span class="label-tag">Required</span>
+              </label>
+              <div class="input-with-icon">
+                <i class="fa-solid fa-globe input-icon-prefix"></i>
+                <input 
+                  type="url" 
+                  id="targetUrl" 
+                  class="modern-input" 
+                  placeholder="https://yourwebsite.com/promotion" 
+                  value="https://snapqr.dev/showcase"
+                  required
+                >
+              </div>
+
+            </div>
+
+            <!-- Step 2: Custom Loading Message & Screen Experience -->
+            <div class="form-group-block">
+              <div class="section-header">
+                <div class="section-icon-badge">
+                  <i class="fa-solid fa-hourglass-half"></i>
+                </div>
+                <div>
+                  <h2>2. Loading & Splash Experience</h2>
+                  <p>Customize the message shown while the scanner is loading</p>
+                </div>
+              </div>
+
+              <label for="loadingMessage" class="input-label">
+                Loading Screen Message <span class="label-tag">Personalized</span>
+              </label>
+              <div class="input-with-icon">
+                <i class="fa-solid fa-comment-dots input-icon-prefix"></i>
+                <input 
+                  type="text" 
+                  id="loadingMessage" 
+                  class="modern-input" 
+                  placeholder="e.g. Preparing your special VIP access..." 
+                  value="✨ Hold tight! Redirecting you to something special..."
+                >
+              </div>
+
+
+
+              <div class="controls-2col mt-16">
+                <div>
+                  <label for="loadingSubtext" class="input-label">Brand Subtitle / Footnote</label>
+                  <div class="input-with-icon">
+                    <i class="fa-solid fa-shield-halved input-icon-prefix"></i>
+                    <input 
+                      type="text" 
+                      id="loadingSubtext" 
+                      class="modern-input" 
+                      placeholder="e.g. Powered by SnapQR" 
+                      value="Powered by SnapQR • Securing your connection"
+                    >
+                  </div>
+                </div>
+
+                <div>
+                  <label for="redirectDelay" class="input-label">Redirect Delay (Seconds)</label>
+                  <div class="input-with-icon">
+                    <i class="fa-regular fa-clock input-icon-prefix"></i>
+                    <select id="redirectDelay" class="modern-select">
+                      <option value="1">1 Second (Super Fast)</option>
+                      <option value="2">2 Seconds</option>
+                      <option value="3" selected>3 Seconds (Recommended)</option>
+                      <option value="5">5 Seconds (Showcase Brand)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-16">
+                <label for="spinnerStyle" class="input-label">Loading Animation Style</label>
+                <div class="input-with-icon">
+                  <i class="fa-solid fa-spinner input-icon-prefix"></i>
+                  <select id="spinnerStyle" class="modern-select">
+                    <option value="dual-ring" selected>Modern Dual Ring Spinner</option>
+                    <option value="pulse">Radiant Pulse Wave</option>
+                    <option value="orbit">Orbiting Twin Spheres</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3: QR Visual Customization -->
+            <div class="form-group-block">
+              <div class="section-header">
+                <div class="section-icon-badge">
+                  <i class="fa-solid fa-palette"></i>
+                </div>
+                <div>
+                  <h2>3. Appearance & Brand Styling</h2>
+                  <p>Fine-tune colors, titles, logos, and resolution</p>
+                </div>
+              </div>
+
+              <label for="qrTitle" class="input-label">QR Card Title (Optional)</label>
+              <div class="input-with-icon">
+                <i class="fa-solid fa-heading input-icon-prefix"></i>
+                <input 
+                  type="text" 
+                  id="qrTitle" 
+                  class="modern-input" 
+                  placeholder="e.g. Scan to Visit Store" 
+                  value="Scan to Explore"
+                >
+              </div>
+
+              <!-- Colors -->
+              <div class="controls-2col mt-16">
+                <div class="color-picker-box">
+                  <label class="input-label">Foreground Color</label>
+                  <div class="color-input-wrap">
+                    <input type="color" id="fgColor" value="#9FA0FF">
+                    <span class="color-hex-val" id="fgHex">#9FA0FF</span>
+                  </div>
+                  <div class="color-swatches">
+                    <div class="swatch-dot swatch-9fa0ff" data-fg="#9FA0FF" title="Periwinkle Glow"></div>
+                    <div class="swatch-dot swatch-ff7171" data-fg="#FF7171" title="Vibrant Coral"></div>
+                    <div class="swatch-dot swatch-d5e8e6" data-fg="#D5E8E6" title="Soft Mint"></div>
+                    <div class="swatch-dot swatch-fff3e3" data-fg="#FFF3E3" title="Warm Cream"></div>
+                    <div class="swatch-dot swatch-0d111d" data-fg="#0d111d" title="Deep Obsidian"></div>
+                    <div class="swatch-dot swatch-6366f1" data-fg="#6366f1" title="Cyber Indigo"></div>
+                  </div>
+                </div>
+
+                <div class="color-picker-box">
+                  <label class="input-label">Background Color</label>
+                  <div class="color-input-wrap">
+                    <input type="color" id="bgColor" value="#ffffff">
+                    <span class="color-hex-val" id="bgHex">#FFFFFF</span>
+                  </div>
+                  <div class="color-swatches">
+                    <div class="swatch-dot swatch-ffffff" data-bg="#ffffff" title="Pure White"></div>
+                    <div class="swatch-dot swatch-fff3e3" data-bg="#FFF3E3" title="Warm Cream"></div>
+                    <div class="swatch-dot swatch-d5e8e6" data-bg="#D5E8E6" title="Soft Mint"></div>
+                    <div class="swatch-dot swatch-0d111d" data-bg="#0d111d" title="Deep Obsidian"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Logo & Error Correction -->
+              <div class="controls-2col mt-16">
+                <div class="color-picker-box logo-toggle-box">
+                  <div>
+                    <label class="input-label mb-2">Embed SnapQR Logo</label>
+                    <span class="input-hint">Adds central brand mark</span>
+                  </div>
+                  <input type="checkbox" id="includeLogo" checked class="modern-checkbox">
+                </div>
+
+                <div>
+                  <label for="eccLevel" class="input-label">Error Correction Level</label>
+                  <div class="input-with-icon">
+                    <i class="fa-solid fa-shield-cat input-icon-prefix"></i>
+                    <select id="eccLevel" class="modern-select">
+                      <option value="H" selected>High (30% - Best for Logos)</option>
+                      <option value="Q">Quartile (25%)</option>
+                      <option value="M">Medium (15%)</option>
+                      <option value="L">Low (7% - Compact)</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Export Resolution -->
+              <div class="mt-16">
+                <label for="qrResolution" class="input-label">Export Resolution</label>
+                <div class="input-with-icon">
+                  <i class="fa-solid fa-expand input-icon-prefix"></i>
+                  <select id="qrResolution" class="modern-select">
+                    <option value="512">Standard Quality (512 x 512 px)</option>
+                    <option value="1024" selected>HD Crisp Quality (1024 x 1024 px)</option>
+                    <option value="2048">Ultra Print Quality (2048 x 2048 px)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="form-actions">
+              <button type="button" id="btnGenerate" class="btn-generate">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Generate & Refresh QR
+              </button>
+              <button type="button" id="btnReset" class="btn-reset">
+                <i class="fa-solid fa-rotate-left"></i> Reset
+              </button>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Live Interactive Preview Column (Sticky) -->
+        <div class="preview-sticky">
+          <div class="preview-card">
+            
+            <!-- Dual-Mode Tabs -->
+            <div class="preview-tabs" role="tablist">
+              <button type="button" id="tabQr" class="tab-btn active" role="tab" aria-selected="true">
+                <i class="fa-solid fa-qrcode"></i> QR Code View
+              </button>
+              <button type="button" id="tabLoading" class="tab-btn" role="tab" aria-selected="false">
+                <i class="fa-solid fa-mobile-screen-button"></i> Loading Screen
+              </button>
+            </div>
+
+            <!-- Tab 1: QR Stage -->
+            <div id="qrStage" class="qr-stage-wrapper">
+              <div id="qrTitleDisplay" class="qr-title-display">Scan to Explore</div>
+              
+              <div class="qr-canvas-holder">
+                <canvas id="qrCanvas"></canvas>
+                <div id="qrLogoOverlay" class="qr-logo-overlay">
+                  <img src="{{ url_for('static', filename='img/Logo.png') }}" alt="Brand Icon">
+                </div>
+              </div>
+
+              <div class="qr-scan-hint">
+                <i class="fa-solid fa-camera"></i> Point your phone camera to test
+              </div>
+            </div>
+
+            <!-- Tab 2: Mobile Loading Screen Simulator -->
+            <div id="loadingSimulator" class="loading-simulator">
+              <div class="mobile-notch"></div>
+              
+              <div class="sim-brand">
+                <img src="{{ url_for('static', filename='img/Logo.png') }}" alt="Brand Mark">
+                <span>Snap<span class="text-primary">QR</span></span>
+              </div>
+
+              <div id="simSpinnerContainer" class="spinner-container">
+                <div class="spinner-dual-ring"></div>
+              </div>
+
+              <div id="simMessage" class="sim-message-title">
+                ✨ Hold tight! Redirecting you to something special...
+              </div>
+
+              <div id="simSubtext" class="sim-message-sub">
+                Powered by SnapQR • Securing your connection
+              </div>
+
+              <div class="sim-progress-bar">
+                <div class="sim-progress-fill"></div>
+              </div>
+
+              <div id="simTargetUrl" class="sim-target-hint">
+                https://snapqr.dev/showcase
+              </div>
+            </div>
+
+            <!-- MongoDB Saved Short Link Info Card -->
+            <div id="savedMongoInfo" class="saved-mongo-info is-hidden">
+              <div class="saved-mongo-header">
+                <span class="saved-mongo-badge">
+                  <i class="fa-solid fa-database"></i> Stored in MongoDB
+                </span>
+                <span id="scanCountBadge" class="scan-counter-pill">
+                  0 Scans
+                </span>
+              </div>
+              <div class="saved-mongo-input-row">
+                <input type="text" id="generatedShortUrl" readonly class="modern-input short-url-input" value="">
+                <button type="button" id="copyShortUrlBtn" class="btn-preview-action btn-icon-sq" title="Copy Short Link">
+                  <i class="fa-regular fa-copy"></i>
+                </button>
+                <a href="#" id="testShortUrlLink" target="_blank" class="btn-preview-action btn-icon-sq" title="Test Scan Redirect in New Tab">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+            </div>
+
+            <!-- Preview Actions -->
+            <div class="preview-buttons">
+              <button type="button" id="downloadPng" class="btn-preview-action">
+                <i class="fa-solid fa-file-image"></i> Download PNG
+              </button>
+              <button type="button" id="downloadSvg" class="btn-preview-action">
+                <i class="fa-solid fa-bezier-curve"></i> Download SVG
+              </button>
+              <button type="button" id="copyLink" class="btn-preview-action">
+                <i class="fa-regular fa-copy"></i> Copy Target URL
+              </button>
+              <button type="button" id="testSim" class="btn-preview-action btn-preview-full">
+                <i class="fa-solid fa-play"></i> Test Scan Simulator
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="glow-pill"><i class="fa-solid fa-star"></i> Powerful Capabilities</div>
+        <h2>Engineered for Modern Brands & Creators</h2>
+        <p>Everything you need to deliver engaging QR scans and memorable loading splash transitions.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <i class="fa-solid fa-hourglass-start"></i>
+          </div>
+          <h3>Custom Loading Message</h3>
+          <p>Greet scanners with branded splash screens, custom messages, announcements, or discount codes before reaching the destination.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h3>High Error Correction</h3>
+          <p>Built with level-H Reed-Solomon error correction so your QR code scans flawlessly even with embedded logos or minor surface damage.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <i class="fa-solid fa-palette"></i>
+          </div>
+          <h3>Brand Customization</h3>
+          <p>Customize module colors, card titles, and center logo emblems with crisp transparent boundaries and auto-contrast.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <i class="fa-solid fa-print"></i>
+          </div>
+          <h3>Print-Ready Vector Exports</h3>
+          <p>Download ultra-high definition PNG (up to 2048px) or scale-free SVG vector graphics ready for billboards, menus, or business cards.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <i class="fa-solid fa-gauge-high"></i>
+          </div>
+          <h3>Instant Live Preview</h3>
+          <p>Dual-mode studio preview simulates both the physical QR code appearance and the mobile scan splash experience in real time.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <i class="fa-solid fa-lock"></i>
+          </div>
+          <h3>Zero Tracking & Private</h3>
+          <p>Generate clean, direct, or redirected links with full privacy. No intrusive telemetry or forced expiration dates.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="steps-section" id="how-it-works">
+    <div class="container">
+      <div class="section-title-wrap">
+        <div class="glow-pill"><i class="fa-solid fa-list-check"></i> Simple Workflow</div>
+        <h2>Generate in 3 Easy Steps</h2>
+        <p>From URL to high-impact branded QR code in seconds.</p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <h3>Input Target URL</h3>
+          <p>Paste any web address, menu link, social media profile, or promotion page you want visitors to access.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <h3>Craft Loading Message</h3>
+          <p>Enter the exact text, subtext, and animation style your visitors will see on their mobile screens while redirecting.</p>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <h3>Style & Download</h3>
+          <p>Pick your brand colors, toggle the center logo, test the interactive simulator, and export crisp PNG or SVG files.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Fullscreen Scan Simulator Modal -->
+<div id="simModal" class="modal-overlay" aria-hidden="true" role="dialog">
+  <div class="modal-container">
+    <button type="button" id="modalCloseBtn" class="modal-close-btn" aria-label="Close Simulator">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    
+    <div class="sim-brand mb-20">
+      <img src="{{ url_for('static', filename='img/Logo.png') }}" alt="Brand Mark" width="32" height="32">
+      <span class="sim-brand-title">Snap<span class="text-primary">QR</span></span>
+    </div>
+
+    <div id="modalSpinner" class="spinner-container min-h-90">
+      <div class="spinner-dual-ring"></div>
+    </div>
+
+    <h3 id="modalSimMessage" class="modal-sim-heading">
+      Loading your destination...
+    </h3>
+
+    <p id="modalSimSubtext" class="modal-sim-subtext">
+      Powered by SnapQR • Securing your connection
+    </p>
+
+    <div class="sim-progress-bar sim-progress-bar-modal">
+      <div class="sim-progress-fill"></div>
+    </div>
+
+    <div id="modalCountdown" class="modal-countdown">
+      Redirecting in 3s...
+    </div>
+
+    <div class="modal-target-box">
+      Target Destination: <span id="modalDestination" class="modal-destination-url"></span>
+    </div>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div id="toastMsg" class="toast-msg"></div>
+
+<!-- Site Footer -->
+<footer class="site-footer">
+  <div class="container footer-content">
+    <div class="brand-logo">
+      <img src="{{ url_for('static', filename='img/Logo.png') }}" alt="SnapQR Brand" width="30" height="30">
+      <span class="brand-name brand-name-footer">Snap<span>QR</span></span>
+    </div>
+    <p>Crafted for modern creators, digital marketers, and forward-thinking businesses.</p>
+    
+    <div class="footer-company-badge">
+      <i class="fa-solid fa-building"></i> Made under <a href="https://silver-pixel-soft.pages.dev/" target="_blank" rel="noopener noreferrer" class="company-link">Silver Pixel Soft</a>
+    </div>
+
+    <ul class="footer-links">
+      <li><a href="#generator">Studio</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="https://silver-pixel-soft.pages.dev/" target="_blank" rel="noopener noreferrer">Company</a></li>
+    </ul>
+
+    <p class="footer-copy">
+      &copy; 2026 SnapQR Studio. This application is made under <strong>Silver Pixel Soft</strong>. All rights are reserved by <a href="https://silver-pixel-soft.pages.dev/" target="_blank" rel="noopener noreferrer" class="company-link">Silver Pixel Soft</a>.
+    </p>
+  </div>
+</footer>
+{% endblock %}
+
+{% block extra_js %}
+<!-- External JavaScript libraries and controllers -->
+<script src="{{ url_for('static', filename='javascripts/qrcode.min.js') }}"></script>
+<script src="{{ url_for('static', filename='javascripts/Home.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "Base.html" %}
+
+{% block title %}{% if not_found %}Link Not Found{% else %}Redirecting...{% endif %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/Redirection.css') }}">
+{% endblock %}
+
+{% block content %}
+<main class="redirect-screen">
+  <div id="redirectCard" class="redirect-card" {% if not not_found and target_url %}data-target-url="{{ target_url }}" data-delay="{{ redirect_delay | default(3) }}"{% endif %}>
+
+    <a href="/" class="redirect-brand" aria-label="SnapQR Homepage">
+      <img src="{{ url_for('static', filename='img/Logo.png') }}" alt="SnapQR Brand">
+      <span>Snap<span>QR</span></span>
+    </a>
+
+    {% if not_found %}
+      <div class="not-found-icon">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+      </div>
+      <h1 class="loading-msg">QR Code Not Found</h1>
+      <p class="loading-sub">The link ID "<strong>{{ short_url }}</strong>" does not exist or may have expired.</p>
+      
+      <a href="/" class="home-btn">
+        <i class="fa-solid fa-plus"></i> Create a New QR Code
+      </a>
+    {% else %}
+      
+      <!-- Spinner -->
+      <div class="spinner-box">
+        {% if spinner_style == 'pulse' %}
+          <div class="spinner-pulse"></div>
+        {% elif spinner_style == 'orbit' %}
+          <div class="spinner-orbit"></div>
+        {% else %}
+          <div class="spinner-dual-ring"></div>
+        {% endif %}
+      </div>
+
+      <h1 class="loading-msg">{{ loading_message }}</h1>
+      <p class="loading-sub">{{ loading_subtext }}</p>
+
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <div class="countdown-text" id="countdownLabel">
+        Redirecting in {{ redirect_delay }}s...
+      </div>
+
+      <div class="target-badge">
+        Destination: <span class="target-url-text">{{ target_url }}</span>
+      </div>
+
+      <div>
+        <a href="{{ target_url }}" id="manualRedirectLink" class="manual-btn">
+          Click here if not redirected <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+
+    {% endif %}
+
+    <div class="redirect-footer-note">
+      This app is made under <a href="https://silver-pixel-soft.pages.dev/" target="_blank" rel="noopener noreferrer" class="company-link">Silver Pixel Soft</a> • All rights reserved
+    </div>
+
+  </div>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+{% if not not_found and target_url %}
+<script src="{{ url_for('static', filename='javascripts/Redirection.js') }}"></script>
+{% endif %}
+{% endblock %}
