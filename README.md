@@ -157,6 +157,6 @@ SnapQR includes `vercel.json` and `index.py` for zero-config Vercel Python deplo
 ---
 
 <div align="center">
-  <p>Crafted under <a href="https://silver-pixel-soft.pages.dev/"><strong>Silver Pixel Soft</strong></a></p>
+  <p>Crafted by <a href="https://silver-pixel-soft.pages.dev/"><strong>Silver Pixel Soft</strong></a> and Created by <a href="https://akshay-kumar-two.vercel.app/"><strong>Akshay Kumar</strong></a></p>
 </div>
 
