@@ -44,6 +44,11 @@ def save_qr_code(
   fg_color="#9FA0FF",
   bg_color="#ffffff",
   include_logo=True,
+  custom_logo=None,
+  logo_size=22,
+  logo_shape="rounded",
+  logo_bg="white",
+  ecc_level="H",
 ):
   """Save a new QR record into MongoDB and return its unique short_id."""
   db = get_db()
@@ -61,6 +66,11 @@ def save_qr_code(
   if not (target_url.startswith("http://") or target_url.startswith("https://")):
     target_url = "https://" + target_url
 
+  try:
+    safe_logo_size = max(10, min(32, int(float(logo_size))))
+  except (TypeError, ValueError):
+    safe_logo_size = 22
+
   record = {
     "short_id": short_id,
     "target_url": target_url.strip(),
@@ -74,6 +84,11 @@ def save_qr_code(
     "fg_color": fg_color or "#9FA0FF",
     "bg_color": bg_color or "#ffffff",
     "include_logo": bool(include_logo),
+    "custom_logo": custom_logo or None,
+    "logo_size": safe_logo_size,
+    "logo_shape": logo_shape if logo_shape in ("rounded", "circle", "square", "none") else "rounded",
+    "logo_bg": logo_bg if logo_bg in ("white", "qr_bg") else "white",
+    "ecc_level": ecc_level.upper() if isinstance(ecc_level, str) and ecc_level.upper() in ("L", "M", "Q", "H") else "H",
     "scan_count": 0,
     "created_at": datetime.now(timezone.utc),
     "last_scanned_at": None,

@@ -85,7 +85,7 @@
                   id="targetUrl" 
                   class="modern-input" 
                   placeholder="https://yourwebsite.com/promotion" 
-                  value="https://snapqr.dev/showcase"
+                  value="https://snapqr-sps.vercel.app/"
                   required
                 >
               </div>
@@ -223,8 +223,8 @@
               <div class="controls-2col mt-16">
                 <div class="color-picker-box logo-toggle-box">
                   <div>
-                    <label class="input-label mb-2">Embed SnapQR Logo</label>
-                    <span class="input-hint">Adds central brand mark</span>
+                    <label for="includeLogo" class="input-label mb-2">Center Branding Image</label>
+                    <span class="input-hint">Embed custom or default brand mark</span>
                   </div>
                   <input type="checkbox" id="includeLogo" checked class="modern-checkbox">
                 </div>
@@ -240,6 +240,85 @@
                       <option value="L">Low (7% - Compact)</option>
                     </select>
                   </div>
+                </div>
+              </div>
+
+              <!-- Custom Center Branding Image Studio -->
+              <div id="brandingPanel" class="branding-panel mt-16">
+                <div class="input-label">
+                  <span>Custom QR Center Image</span>
+                  <span class="label-tag label-tag-info">PNG, JPG, WebP, SVG</span>
+                </div>
+
+                <div id="logoDropzone" class="branding-dropzone" tabindex="0" role="button" aria-label="Upload custom QR center branding image">
+                  <input
+                    type="file"
+                    id="customLogoInput"
+                    accept="image/png,image/jpeg,image/webp,image/gif,image/svg+xml"
+                    class="is-hidden"
+                  >
+                  <div class="branding-thumb-wrap">
+                    <img
+                      id="brandingThumbPreview"
+                      src="{{ url_for('static', filename='img/Logo.png') }}"
+                      data-default-logo="{{ url_for('static', filename='img/Logo.png') }}"
+                      alt="Center branding preview"
+                    >
+                  </div>
+                  <div class="branding-meta">
+                    <div id="brandingFileName" class="branding-file-name">Default SnapQR Logo</div>
+                    <div id="brandingFileInfo" class="branding-file-info">Click or drag &amp; drop an image (max 5 MB)</div>
+                  </div>
+                  <div class="branding-actions">
+                    <button type="button" id="btnUploadLogo" class="btn-upload-logo">
+                      <i class="fa-solid fa-cloud-arrow-up"></i> Upload
+                    </button>
+                    <button type="button" id="btnClearCustomLogo" class="btn-clear-logo is-hidden" title="Revert to Default SnapQR Logo" aria-label="Revert to Default SnapQR Logo">
+                      <i class="fa-solid fa-xmark"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="branding-options-grid mt-16">
+                  <div>
+                    <label for="logoShape" class="input-label">Center Frame Shape</label>
+                    <div class="input-with-icon">
+                      <i class="fa-solid fa-shapes input-icon-prefix"></i>
+                      <select id="logoShape" class="modern-select">
+                        <option value="rounded" selected>Rounded Badge</option>
+                        <option value="circle">Circle Badge</option>
+                        <option value="square">Square Badge</option>
+                        <option value="none">No Frame (Raw)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="logoBg" class="input-label">Badge Fill</label>
+                    <div class="input-with-icon">
+                      <i class="fa-solid fa-fill-drip input-icon-prefix"></i>
+                      <select id="logoBg" class="modern-select">
+                        <option value="white" selected>Pure White (#FFFFFF)</option>
+                        <option value="qr_bg">Match QR Background</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="branding-size-row mt-16">
+                  <div class="input-label mb-2">
+                    <label for="logoSize">Center Image Size</label>
+                    <span id="logoSizeVal" class="size-value-pill">22%</span>
+                  </div>
+                  <input type="range" id="logoSize" class="modern-range" min="14" max="28" step="1" value="22">
+                </div>
+
+                <div id="logoEccHint" class="branding-ecc-hint is-hidden">
+                  <span>
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    High (30%) error correction is recommended when embedding center images.
+                  </span>
+                  <button type="button" id="btnSetHighEcc" class="btn-ecc-fix">Set High</button>
                 </div>
               </div>
 
@@ -291,7 +370,12 @@
               <div class="qr-canvas-holder">
                 <canvas id="qrCanvas"></canvas>
                 <div id="qrLogoOverlay" class="qr-logo-overlay">
-                  <img src="{{ url_for('static', filename='img/Logo.png') }}" alt="Brand Icon">
+                  <img
+                    id="qrLogoImg"
+                    src="{{ url_for('static', filename='img/Logo.png') }}"
+                    data-default-logo="{{ url_for('static', filename='img/Logo.png') }}"
+                    alt="QR Center Branding Image"
+                  >
                 </div>
               </div>
 
@@ -460,7 +544,7 @@
         <div class="step-card">
           <div class="step-number">03</div>
           <h3>Style & Download</h3>
-          <p>Pick your brand colors, toggle the center logo, test the interactive simulator, and export crisp PNG or SVG files.</p>
+          <p>Pick your brand colors, upload a custom center branding image, test the interactive simulator, and export crisp PNG or SVG files.</p>
         </div>
       </div>
     </div>
